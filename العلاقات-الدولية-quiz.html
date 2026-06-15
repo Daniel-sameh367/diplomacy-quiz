@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة مراجعة | العلاقات الدولية والنظم الدبلوماسية</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #0f1f3d;
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --white: #ffffff;
+    --off-white: #f7f5f0;
+    --gray: #8a8fa8;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --card-bg: #1a2d52;
+  }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #0a1628 0%, #1a2d52 50%, #0f1f3d 100%);
+    padding: 50px 20px 40px;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    color: var(--gray);
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  /* ===== TABS ===== */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  .tab-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gray);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .tab-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .tab-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  /* ===== MAIN CONTAINER ===== */
+  .container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ===== START SCREEN ===== */
+  .start-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+  }
+  .start-card .icon { font-size: 60px; margin-bottom: 20px; }
+  .start-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .start-card p { color: var(--gray); font-size: 14px; margin-bottom: 30px; line-height: 1.8; }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .mode-card {
+    background: rgba(255,255,255,0.04);
+    border: 2px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 18px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .mode-card:hover, .mode-card.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+  .mode-card .mode-icon { font-size: 28px; margin-bottom: 8px; }
+  .mode-card h3 { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .mode-card p { font-size: 11px; color: var(--gray); }
+
+  .count-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .count-select label { color: var(--gray); font-size: 13px; }
+  .count-select select {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .count-select select option { background: var(--navy); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), #e8b84b);
+    color: var(--navy);
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.4); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ===== LOADING ===== */
+  .loading-screen {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .spinner {
+    width: 55px;
+    height: 55px;
+    border: 3px solid rgba(201,168,76,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-screen h3 { font-size: 18px; color: var(--white); margin-bottom: 8px; }
+  .loading-screen p { color: var(--gray); font-size: 13px; }
+
+  /* ===== QUIZ SCREEN ===== */
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .quiz-progress-text { color: var(--gold); font-weight: 700; font-size: 14px; }
+  .quiz-score-badge {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    height: 5px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  .question-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+  }
+  .question-type-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+  .badge-tf { background: rgba(52,152,219,0.2); color: #5dade2; border: 1px solid #5dade2; }
+  .badge-mcq { background: rgba(155,89,182,0.2); color: #bb8fce; border: 1px solid #bb8fce; }
+  .badge-open { background: rgba(46,204,113,0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+
+  .question-text {
+    font-size: clamp(15px, 2.5vw, 18px);
+    font-weight: 600;
+    line-height: 1.7;
+    color: var(--white);
+    margin-bottom: 22px;
+  }
+
+  .options-grid { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: right;
+    transition: all 0.2s;
+    line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+  .option-btn.correct {
+    border-color: var(--green);
+    background: rgba(46,204,113,0.15);
+    color: var(--green);
+  }
+  .option-btn.wrong {
+    border-color: var(--red);
+    background: rgba(231,76,60,0.15);
+    color: var(--red);
+  }
+  .option-btn:disabled { cursor: default; }
+
+  /* TF buttons */
+  .tf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Open answer */
+  .open-answer-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .open-answer-area textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(201,168,76,0.3);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 14px;
+    border-radius: 10px;
+    resize: vertical;
+    min-height: 100px;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .open-answer-area textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .btn-check {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 11px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-start;
+  }
+  .btn-check:hover { background: var(--gold); color: var(--navy); }
+
+  .feedback-box {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-top: 12px;
+    display: none;
+  }
+  .feedback-box.correct-fb {
+    background: rgba(46,204,113,0.1);
+    border: 1px solid var(--green);
+    color: #a9dfbf;
+  }
+  .feedback-box.wrong-fb {
+    background: rgba(231,76,60,0.1);
+    border: 1px solid var(--red);
+    color: #f1948a;
+  }
+  .feedback-box.partial-fb {
+    background: rgba(241,196,15,0.1);
+    border: 1px solid #f1c40f;
+    color: #f9e79f;
+  }
+  .feedback-box.visible { display: block; }
+
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .btn-next {
+    flex: 1;
+    background: linear-gradient(135deg, var(--gold), #e8b84b);
+    color: var(--navy);
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: none;
+  }
+  .btn-next:hover { transform: translateY(-1px); }
+  .btn-next.visible { display: block; }
+
+  .btn-skip {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--gray);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    padding: 13px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-skip:hover { border-color: var(--gray); color: var(--white); }
+
+  /* ===== RESULT SCREEN ===== */
+  .result-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+  }
+  .result-emoji { font-size: 64px; margin-bottom: 16px; }
+  .result-card h2 { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
+  .result-card .subtitle { color: var(--gray); font-size: 14px; margin-bottom: 28px; }
+
+  .score-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: conic-gradient(var(--gold) var(--pct), rgba(255,255,255,0.08) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+  }
+  .score-circle::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: var(--card-bg);
+    border-radius: 50%;
+  }
+  .score-circle .score-num {
+    position: relative;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--gold);
+    z-index: 1;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 10px;
+  }
+  .stat-box .val { font-size: 22px; font-weight: 900; }
+  .stat-box .lbl { color: var(--gray); font-size: 11px; margin-top: 4px; }
+  .stat-box.green .val { color: var(--green); }
+  .stat-box.red .val { color: var(--red); }
+  .stat-box.gold .val { color: var(--gold); }
+
+  .btn-restart {
+    background: linear-gradient(135deg, var(--gold), #e8b84b);
+    color: var(--navy);
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.2s;
+  }
+  .btn-restart:hover { transform: translateY(-2px); }
+
+  /* ===== ERROR ===== */
+  .error-box {
+    background: rgba(231,76,60,0.1);
+    border: 1px solid var(--red);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    color: #f1948a;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 480px) {
+    .mode-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stats-row .stat-box:last-child { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">🎓 مراجعة تفاعلية</div>
+  <h1>العلاقات الدولية<br><span>والنظم الدبلوماسية 2</span></h1>
+  <p>أسئلة بالذكاء الاصطناعي — صح/غلط • اختيار من متعدد • مقالي</p>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setMode('all')">كل الأنواع</button>
+    <button class="tab-btn" onclick="setMode('tf')">✓ صح وغلط</button>
+    <button class="tab-btn" onclick="setMode('mcq')">◉ اختيار متعدد</button>
+    <button class="tab-btn" onclick="setMode('open')">✍ مقالي</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- START -->
+  <div id="startScreen" class="screen active">
+    <div class="start-card">
+      <div class="icon">📚</div>
+      <h2>جاهز للمراجعة؟</h2>
+      <p>هتتدرب على المادة من خلال أسئلة بتتولد بالذكاء الاصطناعي<br>بناءً على محتوى المذكرة الحقيقي</p>
+
+      <div class="count-select">
+        <label>عدد الأسئلة:</label>
+        <select id="questionCount">
+          <option value="5">5 أسئلة</option>
+          <option value="10" selected>10 أسئلة</option>
+          <option value="15">15 سؤال</option>
+          <option value="20">20 سؤال</option>
+        </select>
+      </div>
+
+      <button class="btn-primary" onclick="startQuiz()">ابدأ الاختبار 🚀</button>
+      <div id="startError" class="error-box" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loadingScreen" class="screen">
+    <div class="loading-screen">
+      <div class="spinner"></div>
+      <h3>بيتولد الاختبار...</h3>
+      <p>الذكاء الاصطناعي بيحضر أسئلة من المذكرة</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" class="screen">
+    <div class="quiz-header">
+      <span class="quiz-progress-text" id="progressText">سؤال 1 من 10</span>
+      <span class="quiz-score-badge" id="scoreBadge">0 ✓</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <span class="question-type-badge" id="typeBadge"></span>
+      <p class="question-text" id="questionText"></p>
+
+      <!-- MCQ / TF options -->
+      <div class="options-grid" id="optionsContainer"></div>
+
+      <!-- Open answer -->
+      <div class="open-answer-area" id="openContainer" style="display:none">
+        <textarea id="openAnswer" placeholder="اكتب إجابتك هنا..."></textarea>
+        <button class="btn-check" onclick="checkOpenAnswer()">تحقق من الإجابة ✨</button>
+        <div class="feedback-box" id="openFeedback"></div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-skip" onclick="skipQuestion()">تخطي ⟩</button>
+      <button class="btn-next visible" id="nextBtn" onclick="nextQuestion()" style="display:none">
+        السؤال التالي ⟩
+      </button>
+    </div>
+    <div id="quizError" class="error-box" style="display:none"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" class="screen">
+    <div class="result-card">
+      <div class="result-emoji" id="resultEmoji">🏆</div>
+      <h2 id="resultTitle">أحسنت!</h2>
+      <p class="subtitle" id="resultSubtitle"></p>
+
+      <div class="score-circle" id="scoreCircle">
+        <span class="score-num" id="scoreNum">0%</span>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box green">
+          <div class="val" id="correctCount">0</div>
+          <div class="lbl">إجابات صح</div>
+        </div>
+        <div class="stat-box red">
+          <div class="val" id="wrongCount">0</div>
+          <div class="lbl">إجابات غلط</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="val" id="totalCount">0</div>
+          <div class="lbl">إجمالي</div>
+        </div>
+      </div>
+
+      <button class="btn-restart" onclick="restartQuiz()">🔄 اختبار جديد</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===================== CONTENT =====================
+const CONTENT = `
+أنت مساعد متخصص في مادة "العلاقات الدولية والنظم الدبلوماسية 2".
+فيما يلي المحتوى الكامل للمذكرة:
+
+===== محتوى المذكرة =====
+
+أولاً: صح وغلط (مختارة من المذكرة):
+1. ترسيم معاهدة مادة بشأن اوضاع علماء الدولة ووضع الدبلوماسيين يعتبر من القانون الدولي العرفي. (صح)
+2. تتضمن مهمة وزير الخارجية الإشراف على تسجيل المعاهدات وإجراءات تسجيل المهندسات. (صح)
+3. انطلقت ونشأة الديبلوماسية الإسلامية على العادات التي تحكم العلاقات الدبلوماسية وسلامة الرسل وإرسالهم بعادات السير. (صح)
+4. عرف الإسلام نظام اللجوء الإقليمي واللجوء السياسي وطبقها في حياة الرسول الاكرم. (صح)
+5. يتعلق بالخطاب تحديد الدرجة السلوك التي تتم بها اختيار الرسل. (خطأ)
+6. ازدياد تقاطع المصالح بين الدول أدى إلى تراجع الدبلوماسية الثنائية بين رؤساء الدول والحكومات. (صح)
+7. تمتاز دبلوماسية المنظمات الدولية بعلاقاتها الدائمة مع أشخاص دوليين آخرين مثل علاقاتها ببعضها البعض وعلاقاتها مع دول غير أعضاء فيها. (صح)
+8. من الظواهر المهمة في دبلوماسية المنظمات الدولية عادةً التصويت الكتلي وليس تقابل التصويت الحزبي في البرلمانات الوطنية. (صح)
+9. يقصد بالدبلوماسية الرقم والمؤتمرات التي يعقدها رؤساء الدول فيما بينهم لمناقشة بعض المسائل الدولية. (صح)
+10. جاءت وكالة قممات الرأي لرفع حدود جذب الاتفاقيات دائمة بين الدول، حيث أن قمة زعماء الدول بما لديهم من مصالح سياسية واسعة. (صح)
+11. تعد الدبلوماسية الشعبية ودبلوماسية الإعلام من المهام الرئيسية للممثل الدبلوماسي. (خطأ)
+12. تختص دبلوماسية علم النفس على فهم البعد النفسي في شخصية الزعيم قبل الجلوس على طاولة المفاوضات. (صح)
+13. تتضمن الدبلوماسية الوقائية مجموعة من التدابير التي تتخذها الدبلوماسية لتفادي ظهور توتر أو نزاع منذ بالحرب أو تدليه دخول دولتين في حرب. (صح)
+14. يُلزم وزير الخارجية بدرجة المهيمن على السياسة الخارجية في الدولة، والربط الفعلي بين دولته والعالم الخارجي. (صح)
+15. يُلزم وزير الخارجية أحياناً بالتصريح خارج اختصاصه السياسي الامتناع عن الوقوف الدبلوماسي احتراماً بالشؤون الدولية. (صح)
+16. من مهام وزير الخارجية توقيع تتم الاعتراف بسفراء ورؤساء البعثات الدبلوماسية والقنصلية قبل رفعها لرئيس الدولة. (صح)
+17. تقوم اللجنة العليا للتخطيط والتنسيق بوزارة الخارجية بدراسة الملفات السياسية الدولية وما ينشأ عنها من مشكلات. (صح)
+18. لا يشترط القانون المصري وجود مهنة معين في إحدى وظائف السلك الدبلوماسي أن يكون مصري الجنسية أو من أبوين مصريين. (خطأ)
+19. يتعين أن تتوافق الدولة المعتمد إليها على شخص رئيس البعثة، وما لا يجوز لرئيس البعثة أن يمثل هذا في دولة أو يمثل دولته في دولتين. (خطأ)
+20. تحدد الدولة المرتبة والحجم والدولة رئيس البعثة وعدد بعثاتها الدبلوماسية وفق مدى حجم العلاقات التي تربطها بالدولة المعتمد إليها البعث. (صح)
+21. تكون الدولة المعتمدة في الأساس حرة في تحديد عدد إفراد بعثتها الدبلوماسية لدى الدولة المعتمدة لديها. (صح)
+22. لا تلزم الدولة المعتمد لديها أن ترفض أبول موظفين في فئة معينة. (خطأ)
+23. من مهام البعثات الدبلوماسية حماية المصالح الخاصة بالدولة المعتمدة ومواطنيها في الدولة المعتمد لديها وذلك في حدود القبول في القانون الدولي. (صح)
+24. من مهام البعثات الدبلوماسية التفاوض مع حكومة الدولة المعتمد لديها. (صح)
+25. يجب على البعثة الدبلوماسية الامتناع عن التدخل في الشؤون الداخلية لدولة المُرسل والامتناع عن مناصرة أي حزب سياسي فيها أو المساهمة في أعمال أدت ضد حكومتها. (صح)
+26. يسمح للبعثة الدبلوماسية استعمال مقر البعثة الدبلوماسية في أغراض لا تتفق مع وظائفها. (خطأ)
+27. يجوز للدولة المعتمد لديها أن تضمن في حالة المقاومة العسكرية أو البحرية أو الجوية مواطنيها بأسمائهم مقدماً للمراجعة عليها. (صح)
+28. للدولة المعتمد لديها الحق في أي وقت أبدت ذلك الأسباب أن تبلغ الدولة المعتمدة أن رئيسها أو أحد أعضاء بعثتها الدبلوماسية شخصاً غير مقبول لديه. (صح)
+29. لو اعتبرت المولى وقد قبلت شخصاً عادياً في المبعوثين الدبلوماسيين، فإن هذا الأخير بإمكانه أن يرفض الذهاب إلى المحكمة إذا أراد ذلك. (صح)
+30. مفهوم الحصانة متجانس رغم أن بعض الحصانات تتشابه مع أسلوب الإباحة. (خطأ)
+31. يعد خضوع المبعوثين الدبلوماسيين للسلطة المحلية له علاقة أو يسمح بالظروف المحيطة والخاصة بمسائل المبعوثين وقبلهم. (صح)
+32. الحصانة لا تعني مبدأ عدم احترام المبعوثين نظرة الدول المدنية، بل عليه احترامها طبقاً للعرف الدولي المقنن في اتفاقية فيينا عام 1961. (صح)
+33. ترى المعاهد نظرية الصفة التمثيلية لتعاملها مع سيادة الدولة المعتمد لديها، أنها لو وُجدت في حالة الحصانة خلال العمل الرسمي، وأنها لا تصدر على الحصانة الشخصية التي يتمتع بها الدبلوماسي خارج نطاق عمله. (صح)
+34. المجتمع الدولي استحسن الأخذ بنظرية وظيفيات الوظيفية، أنها أكثر النظريات مساعدة لمنطق الأمور وشكلها وتتماشى مع الاتجاهات الحديثة في القانون الدولي المعاصر. (صح)
+35. الحصانة تعني عدم الخضوع لاختصاصات المحاكم المحلية وليس الإلغاء المدى الالتزام بقوانين البلد الممثل فيه الدبلوماسي. (صح)
+36. لا يُعفى المبعوثون الدبلوماسيون من الإدلاء بالشهادات، ولا يتخذ في حقهم أي إجراءات تنفيذية إلا في حالات خاصة. (خطأ)
+37. يُسأل المبعوث الدبلوماسي عن الأضرار العينية المتعلقة بالأموال العامة الخاصة الكائنة في إقليم الدولة المعتمد لديها، ما لم تكن حيازته لها بالنيابة عن الدولة المعتمدة لاستخدامها في أغراض البعثة. (صح)
+38. يُسأل المبعوث الدبلوماسي عن الأضرار المتعلقة بشؤون الإرث والتركات والتي يدخل فيها بوجه منفذاً أو مديراً أو ثابتاً أو موصى له، وذلك بالمادة عن نفسه وبالنيابة عن الدولة المعتمدة. (خطأ)
+39. لا يُسأل المبعوث الدبلوماسي عن الأضرار المتعلقة بأي نشاط معين أو تجاري يمارسه في الدولة المعتمد لديها خارج وظائفه الرسمية. (خطأ)
+41. المنصل العام يكون خافضاً لرئيس البعثة الدبلوماسية، ويكون مرتبطاً مباشراً بوزارة الخارجية. (صح)
+42. لا يرفع القانون الدولي أي التزام على عاتق الدول منع بإبول العمال لديها. (صح)
+43. الإجازات القنصلية هي مصدر الصفة القنصلية لرئيس البعثة في المجتمع الدولي. (صح)
+44. إصدار الإجازات القنصلية يكون محصوراً في العادة بين رئيس الدولة ووزير الخارجية. (صح)
+45. الموظفون القنصليون يتطلب تعيينهم اتباع الإجراءات ذاتها الخاصة بتعيين رئيس البعثة القنصلية. (خطأ)
+46. قد تمتد دائرة الاختصاص القنصلي لتشمل إقليم الدولة المضيفة كله. (صح)
+47. لا تلتزم الدولة المضيفة إذا كانت سبب انقطاع العلاقات نزاعاً مسلحاً بإعادة حماية البعثة القنصلية ومحتوياتها وممتلكاتها ومحفوظاتها وسجلاتها. (خطأ)
+48. لا يجوز للدولة المضيفة أن تتعهد بحماية مبانيها القنصلية ومحفوظاتها إلى دولة ثالثة. (خطأ)
+49. على الدولة المضيفة في حال تعذر حصول الموظفين القنصليين على وسائل نقل ملائمة نتيجة قوارع طبيعية كالزلازل والفيضانات مثلاً، أن توفر لهم ذلك. (صح)
+50. يترتب على قطع العلاقات الدبلوماسية تلقائياً قطع العلاقات القنصلية بين الدول المعنية. (خطأ)
+51. تُعد الدبلوماسية الاقتصادية أداة لتعزيز المصالح الاقتصادية للدولة في الخارج. (صح)
+52. تهدف الدبلوماسية الشعبية إلى التأثير على الرأي العام الخارجي وليس في قيادة الحكومات. (صح)
+53. تقتصر الدبلوماسية الثقافية على تبادل البعثات التعليمية دون أي نشاط أخرى. (خطأ)
+54. تلعب وسائل الإعلام دور مهماً في الدبلوماسية الشعبية. (صح)
+55. علم النفس الدبلوماسي يُركز على دراسة العوامل النفسية المؤثرة في متخذي القرار السياسي. (صح)
+56. تهتم الدبلوماسية الوقائية بالتدخل بعد اندلاع الصراعات وليس قبلها. (خطأ)
+57. تسهم الدبلوماسية الثقافية في تحسين صورة الدولة وتعزيز قوتها الناعمة. (صح)
+58. أصبحت التكنولوجيا الحديثة لها دور مؤثر في دبلوماسية القرن الحادي والعشرين. (صح)
+59. تركز الدبلوماسية الاقتصادية في غالبها على المساعدات المالية دون الاهتمام بالاستثمار أو التجارة. (خطأ)
+60. الدبلوماسية الشعبية تُعرف أحياناً بدبلوماسية الإعلام. (صح)
+
+أسئلة اختيار من متعدد (من المذكرة):
+1. خُصص الخليفة عمر بن الخطاب مبالغ معينة لاستقبال الرسل الأجانب وتغطية نفقات إقامتهم.
+2. أسست اليونان ما يُعرف "بالسلم الدبلوماسي" حيث بدأ ظهور دبلوماسيون بالمعنى الحديث للكلمة.
+3. الدبلوماسية التقليدية هي تنظيم العلاقات بين دولتين على أساس مفاوضات ثنائية بينهما.
+4. دبلوماسية المنظمات الدولية تمتاز بعلاقاتها الدائمة غالباً بدوام رؤساء الدول المنظمات الدولية.
+5. دبلوماسية المؤتمرات الدولية تمتاز بأنها مؤقتة ودائمة في نفس الوقت.
+6. الدبلوماسية التي تُكرّس لإنشاء تحالفات عسكرية أو تكتلات عسكرية هي دبلوماسية التحالفات.
+7. الدبلوماسية الاقتصادية تستخدم مجموعة من الأدوات لتحقيق فاعليتها منها تطبيق السياسات والتدابير الاقتصادية التي تشجع على التبادل التجاري.
+8. الدبلوماسية التي ترمي إلى إحداث تغيير في التصورات التي تحتفظ بها الدول عن غيرها هي دبلوماسية علم النفس.
+9. من صلاحيات رئيس الدولة: الإدارة العامة للسياسة الخارجية للدولة، وتوقيع المعاهدات وإبرامها.
+10. من الامتيازات والحصانات التي يتمتع بها رئيس الدولة: الإعفاء من الرسوم المالية والضرائب الجنائية على أمتعته الشخصية وحتى مشترياته.
+11. من مهام وزير الخارجية: حماية مصالح دولته المادية والأدبية والدفاع عن حيويتها.
+12. هو المسؤول عن بعثته، ويتولى تمثيل الدولة والإشراف على أعمال البعثة وإدارتها.
+13. المنتمون بين فوج العادة ومنتمو البابا من ذوي ثلاثة مستويات المرسل من لدى رؤساء الدول يُطلق عليهم مرتبة السفراء.
+14. يعتبرون مبعوثين من قبل وزارة الخارجية لدى وزارة خارجية الدولة المعتمد لديها ويُطلق عليهم مرتبة الوزراء المفوضين.
+15. هم الأشخاص الذين تعينهم الدولة المضيفة لمعاونة رئيس البعثة في المهام الموكولة إليه في الدولة المعتمد لديها هم موظفو البعثة.
+16. هم الذين يشغلون درجة دبلوماسية وطبيعة المستشار والسكرتير والملحق وإمكان بعضهم متخصصاً في نشاط معين هم الموظفون الدبلوماسيون.
+17. هم الذين يعملون في الخدمة المنزلية لرئيس البعثة ولموظفيها ولا يكونون من استخدام الدولة المضيفة هم الخدم الخصوميون.
+18. تعني وظيفة التقريب والاستطلاع تقريب وجهات نظر الدول حول موقف معين وبصدد نزاع من أجل التوصل إلى تسوية للنزاع وتنظيم للموقف المتنازع بين الدول المتنازعة.
+19. من أهم الوظائف التي اضطلعت البعثات الدائمة في القيام بها، تكلف البعثات عادةً بمراقبة واستطلاع أحوال الدولة المعتمد لديها.
+20. توجب على البعثة الدبلوماسية من خلال وظيفة التعاون القيام بتخفيف التوتر بين دولتها وبين الدول المعتمدة لديها وتجسيد وإطار التعاون في شتى المجالات بينهما.
+21. من خصائص الحصانة الدبلوماسية: خضوع المبعوثين الدبلوماسيين للسلطة المحلية.
+22. وفقاً لنظرية الامتداد الإقليمي لو لجأ مجرم إلى دار البعثة بعد ارتكاب جريمة خارجها لا تستطيع السلطات المحلية القبض عليه إلا عن طريق الإجراءات الخاصة بتسليم المجرمين.
+23. تستند نظرية الصفة التمثيلية إلى طبيعة الدور الذي يقوم به الممثل الدبلوماسي ودوله ذات سيادة وبالتالي تتمتع تصرفاتها الرسمية وغيرها بالحصانة.
+24. هم الواجبات الدبلوماسية إبلاغ المبعوثون حكومته ما يدور في الدولة المعتمد لديها ولهذا يتمتع البعث بحرية الاتصال.
+25. لا تنحصر معرفته في تحقيق الأهداف السياسية بل تشمل العمل على تعارف الشعوب والدول بدولته التي يمثلها لذلك يتمتع البعث بحرية الشخصية الاجتماعية.
+26. في حالة ارتكاب المبعوث الدبلوماسي جريمة ما سواء ارتكبها بصفته الشخصية أو الدبلوماسية أو الرسمية، ولا يجوز إلقاء القبض عليه طبقاً للحصانة من القضاء الجنائي.
+27. إعفاء المبعوث الدبلوماسي من جميع الأضرار المدنية والإدارية التي يقام فيها ولا يجوز لمحاكم الدولة المعتمد لديها محاكمته طبقاً للحصانة من القضاء المدني والإداري.
+28. من حق المبعوث الدبلوماسي عدم المثول أمام قضاء الدولة المعتمد لديها سواء في قضية جنائية أو مدنية وذلك للحفاظ على استقلاليته طبقاً للحصانة من القضاء المدني والإداري.
+29. يُعدّ في العادة لرئاسة قنصلية عامة وتتبع لها عدة مناطق قنصلية هو القنصل العام.
+30. عادةً ما يُعدّ للإشراف على مناطق قنصلية أصغر أو للعمل في مناطقها أو أذون هو نائب القنصل.
+31. هم معاونون ومساعدون للقنصل العادي وللقنصل يمارسون صلاحياتهم حال غيابهم هم نواب القنصل.
+32. تتمتعون بطابع الدولة المضيفة، يجري تعيينهم في العادة من جانب قنصل عام أو قنصل هم الوكلاء القنصليون.
+33. أعمال عضو البعثة القنصلية تنتهي بـ الإعلام من الدولة المضيفة إلى الدولة المضيفة بانتهاء أعماله.
+34. تهدف الدبلوماسية الاقتصادية إلى: تعزيز المصالح الاقتصادية للدولة.
+35. من أدوات الدبلوماسية الشعبية: الحملات الإعلامية.
+36. ترتكز الدبلوماسية الثقافية على: التبادل الثقافي والتعليم.
+37. ارتبط علم النفس الدبلوماسي بدراسة: العوامل النفسية المؤثرة في مصنعي القرار.
+38. من أهداف الدبلوماسية الوقائية: منع تصاعد النزاعات.
+39. دبلوماسية القرن الحادي والعشرين تأثرت بشكل كبير بـ التكنولوجيا الرقمية.
+40. تسهم الدبلوماسية الشعبية في: التأثير على الرأي العام الخارجي.
+41. من أدوات الدبلوماسية الاقتصادية: الاتفاقيات التجارية.
+42. القوة الناعمة ترتبط بشكل أساسي بـ الجاذبية الثقافية والقيم.
+43. الدبلوماسية الوقائية تُستخدم غالباً في مراحل: قبل اندلاع الصراع.
+44. من عناصر الدبلوماسية الثقافية: التبادل الطلابي.
+45. في دبلوماسية القرن الحادي والعشرين، ازداد دور: الفاعلون غير الحكوميون والمنظمات الدولية.
+46. علم النفس الدبلوماسي يساعد في: فهم سلوك القادة أثناء الأزمات.
+47. تهدف الدبلوماسية الاقتصادية إلى: جذب الاستثمارات.
+48. الدبلوماسية الشعبية تهتم بشكل كبير على: التواصل المباشر مع الشعوب.
+49. يُقصد بالحصانة الدبلوماسية: الإعفاء من الخضوع لبعض الاختصاصات القانونية.
+50. الهدف من الحصانة الدبلوماسية هو: تسهيل أداء الوظائف الدبلوماسية.
+51. مصدر تنظيم الحصانة الدبلوماسية: اتفاقية فيينا 1961.
+52. من مظاهر الامتيازات الدبلوماسية: الإعفاء النسبي.
+53. الحصانة القضائية تعني: عدم محاكمة الدبلوماسي أمام محاكم الدولة المضيفة.
+54. مقر البعثة الدبلوماسية: يتمتع بالحصانة.
+55. الامتيازات الدبلوماسية تشمل: جوانب متعددة منها المالية والإدارية.
+56. الحصانة الدبلوماسية: مرتبطة بوظيفة الدبلوماسي.
+57. الجهة التي تملك التنازل عن الحصانة: الدولة المضيفة، وهو جواب خاطئ، الصواب الدولة المرسلة.
+58. الامتيازات تختلف عن الحصانات في أنها: مالية وإدارية غالباً.
+59. الحصانة لا تعني: الإفلات التام من العقاب نهائياً.
+60. اتفاقية فيينا نصت على: تنظيم الحصانات والامتيازات.
+61. يمكن للدولة المضيفة في حالة إساءة استخدام الحصانة: طرده (إعلانه شخصاً غير مرغوب فيه).
+62. الحصانة الجنائية تعني: عدم الخضوع للقضاء الجنائي للدولة المضيفة.
+63. العلاقة بين الحصانات والامتيازات هي: متمتمان ومتكاملان.
+64. المقصود بانتهاء الوظيفة القنصلية: توقف مهام القنصل لأي سبب قانونية.
+65. سبب طبيعي لانتهاء الوظيفة القنصلية: وفاة القنصل.
+66. المقصود بسحب الإجازة القنصلية: إنهاء الدولة المضيفة اعترافها بالقنصل.
+67. ماذا يحدث في حالة إعلان القنصل شخصاً غير مرغوب فيه: يتم إنهاء عمله واستدعاؤه.
+68. ما يؤدي إلى انتهاء الوظيفة القنصلية بشكل تلقائي: وفاة القنصل.
+69. أثر قطع العلاقات الدبلوماسية على العلاقات القنصلية: لا يؤدي إلى إنهائها وليس بالضرورة.
+70. ما يؤدي إلى سحب الإجازة القنصلية: تدخل القنصل في الشؤون الداخلية.
+71. التزام الدولة المضيفة بعد انتهاء عمل القنصل: توفير تسهيلات لمغادرته.
+72. ماذا يحدث لممتلكات البعثة القنصلية عند قطع العلاقات: تُحمى من قبل الدولة المضيفة أو دولة ثالثة.
+73. ما لا يُعد سبباً لانتهاء الوظيفة القنصلية: زيادة الراتب.
+74. الفرق بين سحب الإجازة وإعلان القنصل شخصاً غير مرغوب فيه: كلاهما من الدولة المضيفة لكن بآليات مختلفة.
+75. في حالة إغلاق البعثة القنصلية: الدولة المضيفة أو دولة ثالثة يتم الاتفاق عليها تتولى حماية ممتلكاتها.
+76. هل يؤدي قطع العلاقات الدبلوماسية دائماً إلى قطع العلاقات القنصلية: لا، قد تستمر العلاقات القنصلية.
+77. التزام الدولة المضيفة في حالة وفاة القنصل: تسهيل نقل الجثمان وممتلكاته.
+
+المقالات الرئيسية في المذكرة:
+1. حالات انتهاء الوظيفة القنصلية: تشمل إعلان انتهاء الصفة القنصلية من جانب الدولة المعتمِدة، سحب الإجازة القنصلية، الإخطار بعدم اعتبار الشخص المعين من الطاقم القنصلي. والأسباب غير المدرجة في اتفاقية فيينا: وفاة عضو البعثة القنصلية، زوال إحدى الدولتين المعتمِدة والمضيفة، قطع العلاقات الدبلوماسية والقنصلية وإغلاق البعثات القنصلية، طرد الموظف القنصلي لأسباب سياسية، التدخل في الشؤون الداخلية للدولة المضيفة، القيام بنشاطات غير قانونية وإساءة استعمال الوظيفة.
+2. الدور الدبلوماسي لرئيس الدولة وصلاحياته وامتيازاته وحصاناته.
+3. مفهوم الحصانة الدبلوماسية وخصائصها.
+4. نظرية الامتداد الإقليمي والانتقادات الموجهة لها.
+===== نهاية المحتوى =====
+`;
+
+// ===================== STATE =====================
+let mode = 'all';
+let questions = [];
+let currentQ = 0;
+let score = 0;
+let answered = 0;
+let answered_correctly = [];
+let total = 10;
+let questionAnswered = false;
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ===================== START =====================
+async function startQuiz() {
+  total = parseInt(document.getElementById('questionCount').value);
+  showScreen('loadingScreen');
+  document.getElementById('startError').style.display = 'none';
+
+  try {
+    questions = await generateQuestions(total, mode);
+    currentQ = 0; score = 0; answered = 0;
+    answered_correctly = new Array(questions.length).fill(null);
+    showScreen('quizScreen');
+    renderQuestion();
+  } catch(e) {
+    showScreen('startScreen');
+    const el = document.getElementById('startError');
+    el.style.display = 'block';
+    el.textContent = '❌ حصل خطأ في توليد الأسئلة. تأكد من اتصالك وحاول مرة تانية.';
+  }
+}
+
+// ===================== API CALL =====================
+async function generateQuestions(count, mode) {
+  const typeInstructions = {
+    'all': `وزّع الأسئلة: ${Math.ceil(count/3)} صح/غلط، ${Math.ceil(count/3)} اختيار من متعدد، ${Math.floor(count/3)} مقالي. حاول التنويع.`,
+    'tf': `كل الأسئلة من نوع صح/غلط (true_false).`,
+    'mcq': `كل الأسئلة من نوع اختيار من متعدد (mcq) مع 4 خيارات.`,
+    'open': `كل الأسئلة من نوع مقالي (open).`
+  };
+
+  const prompt = `${CONTENT}
+
+مهمتك: ولّد بالضبط ${count} سؤال متنوع من محتوى المذكرة أعلاه.
+${typeInstructions[mode]}
+
+القواعد:
+- استخدم المحتوى الفعلي من المذكرة فقط
+- تنويع الموضوعات: حصانات، وظائف قنصلية، دبلوماسية شعبية/اقتصادية/ثقافية، صلاحيات رئيس الدولة، نظرية الامتداد الإقليمي
+- للمقالي: أسئلة حقيقية مثل "اذكر حالات انتهاء الوظيفة القنصلية" أو "وضح مفهوم الحصانة الدبلوماسية"
+
+أرجع JSON فقط بدون أي نص إضافي، بهذا الشكل بالضبط:
+{
+  "questions": [
+    {
+      "type": "true_false",
+      "question": "نص السؤال",
+      "answer": true,
+      "explanation": "شرح قصير للإجابة"
+    },
+    {
+      "type": "mcq",
+      "question": "نص السؤال",
+      "options": ["أ", "ب", "ج", "د"],
+      "answer": 0,
+      "explanation": "شرح قصير"
+    },
+    {
+      "type": "open",
+      "question": "نص السؤال المقالي",
+      "key_points": ["نقطة 1", "نقطة 2", "نقطة 3"],
+      "model_answer": "إجابة نموذجية مختصرة"
+    }
+  ]
+}`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!res.ok) throw new Error('API error');
+  const data = await res.json();
+  let text = data.content[0].text.trim();
+  text = text.replace(/```json|```/g, '').trim();
+  const parsed = JSON.parse(text);
+  return parsed.questions;
+}
+
+// ===================== RENDER =====================
+function renderQuestion() {
+  const q = questions[currentQ];
+  questionAnswered = false;
+
+  // Progress
+  const pct = ((currentQ) / questions.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `سؤال ${currentQ + 1} من ${questions.length}`;
+  document.getElementById('scoreBadge').textContent = `${score} ✓`;
+
+  // Type badge
+  const badge = document.getElementById('typeBadge');
+  if (q.type === 'true_false') { badge.className = 'question-type-badge badge-tf'; badge.textContent = '✓ صح أو غلط'; }
+  else if (q.type === 'mcq') { badge.className = 'question-type-badge badge-mcq'; badge.textContent = '◉ اختيار من متعدد'; }
+  else { badge.className = 'question-type-badge badge-open'; badge.textContent = '✍ مقالي'; }
+
+  document.getElementById('questionText').textContent = q.question;
+
+  // Options
+  const optContainer = document.getElementById('optionsContainer');
+  const openContainer = document.getElementById('openContainer');
+  optContainer.innerHTML = '';
+  openContainer.style.display = 'none';
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('quizError').style.display = 'none';
+
+  if (q.type === 'true_false') {
+    optContainer.className = 'options-grid tf-grid';
+    ['✅ صح', '❌ غلط'].forEach((label, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = label;
+      btn.onclick = () => answerTF(i === 0, btn);
+      optContainer.appendChild(btn);
+    });
+  } else if (q.type === 'mcq') {
+    optContainer.className = 'options-grid';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt;
+      btn.onclick = () => answerMCQ(i, btn);
+      optContainer.appendChild(btn);
+    });
+  } else {
+    optContainer.style.display = 'none';
+    openContainer.style.display = 'flex';
+    document.getElementById('openAnswer').value = '';
+    document.getElementById('openFeedback').className = 'feedback-box';
+    document.getElementById('openFeedback').textContent = '';
+    document.getElementById('openFeedback').style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('nextBtn').textContent = currentQ < questions.length - 1 ? 'السؤال التالي ⟩' : 'النتيجة 🏆';
+  }
+}
+
+function answerTF(userAnswer, clickedBtn) {
+  if (questionAnswered) return;
+  questionAnswered = true;
+  const q = questions[currentQ];
+  const correct = userAnswer === q.answer;
+  const btns = document.querySelectorAll('#optionsContainer .option-btn');
+
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    const isTrue = i === 0;
+    if (isTrue === q.answer) b.classList.add('correct');
+  });
+
+  if (!correct) clickedBtn.classList.add('wrong');
+  else { score++; }
+  answered_correctly[currentQ] = correct;
+
+  // Show explanation
+  showExplanation(correct, q.explanation);
+  document.getElementById('nextBtn').style.display = 'block';
+  document.getElementById('nextBtn').textContent = currentQ < questions.length - 1 ? 'السؤال التالي ⟩' : 'النتيجة 🏆';
+}
+
+function answerMCQ(idx, clickedBtn) {
+  if (questionAnswered) return;
+  questionAnswered = true;
+  const q = questions[currentQ];
+  const correct = idx === q.answer;
+  const btns = document.querySelectorAll('#optionsContainer .option-btn');
+
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.answer) b.classList.add('correct');
+  });
+
+  if (!correct) clickedBtn.classList.add('wrong');
+  else score++;
+  answered_correctly[currentQ] = correct;
+
+  showExplanation(correct, q.explanation);
+  document.getElementById('nextBtn').style.display = 'block';
+  document.getElementById('nextBtn').textContent = currentQ < questions.length - 1 ? 'السؤال التالي ⟩' : 'النتيجة 🏆';
+}
+
+async function checkOpenAnswer() {
+  const userText = document.getElementById('openAnswer').value.trim();
+  if (!userText) return;
+  const q = questions[currentQ];
+
+  const fb = document.getElementById('openFeedback');
+  fb.style.display = 'block';
+  fb.className = 'feedback-box';
+  fb.textContent = '⏳ بيتحقق من إجابتك...';
+
+  try {
+    const evalPrompt = `أنت مصحح امتحان. السؤال: "${q.question}"
+الإجابة النموذجية: "${q.model_answer}"
+النقاط الأساسية: ${JSON.stringify(q.key_points)}
+إجابة الطالب: "${userText}"
+
+قيّم الإجابة في جملتين أو ثلاث: هل هي صحيحة / جيدة / ناقصة؟ واذكر ما فاتها. كن مختصراً وداعماً. ابدأ بـ ✅ أو ⚠️ أو ❌.`;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 300,
+        messages: [{ role: 'user', content: evalPrompt }]
+      })
+    });
+    const data = await res.json();
+    const evalText = data.content[0].text.trim();
+    fb.textContent = evalText;
+
+    const isGood = evalText.startsWith('✅');
+    const isPartial = evalText.startsWith('⚠️');
+    fb.className = `feedback-box visible ${isGood ? 'correct-fb' : isPartial ? 'partial-fb' : 'wrong-fb'}`;
+    if (isGood) score++;
+    answered_correctly[currentQ] = isGood;
+    questionAnswered = true;
+  } catch(e) {
+    fb.className = 'feedback-box visible wrong-fb';
+    fb.textContent = '❌ خطأ في التقييم. اضغط التالي للمتابعة.';
+  }
+
+  document.getElementById('nextBtn').textContent = currentQ < questions.length - 1 ? 'السؤال التالي ⟩' : 'النتيجة 🏆';
+}
+
+function showExplanation(correct, text) {
+  // Append explanation below options
+  let existing = document.getElementById('explanationBox');
+  if (existing) existing.remove();
+  if (!text) return;
+
+  const box = document.createElement('div');
+  box.id = 'explanationBox';
+  box.className = `feedback-box visible ${correct ? 'correct-fb' : 'wrong-fb'}`;
+  box.textContent = (correct ? '✅ صح! ' : '❌ غلط! ') + text;
+  document.getElementById('questionCard').appendChild(box);
+}
+
+function nextQuestion() {
+  // Remove explanation
+  const ex = document.getElementById('explanationBox');
+  if (ex) ex.remove();
+
+  currentQ++;
+  if (currentQ >= questions.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function skipQuestion() {
+  answered_correctly[currentQ] = false;
+  const ex = document.getElementById('explanationBox');
+  if (ex) ex.remove();
+  currentQ++;
+  if (currentQ >= questions.length) showResult();
+  else renderQuestion();
+}
+
+// ===================== RESULT =====================
+function showResult() {
+  showScreen('resultScreen');
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+
+  let emoji, title, sub;
+  if (pct >= 90) { emoji = '🏆'; title = 'ممتاز!'; sub = 'أداء رائع، أنت مستعد للامتحان!'; }
+  else if (pct >= 70) { emoji = '👍'; title = 'جيد جداً!'; sub = 'قريب جداً، مراجعة بسيطة وهتبقى كامل.'; }
+  else if (pct >= 50) { emoji = '📚'; title = 'مش بطال!'; sub = 'محتاج مراجعة أكتر، انت على الطريق.'; }
+  else { emoji = '💪'; title = 'ذاكر تاني!'; sub = 'المذكرة محتاجة مراجعة أعمق، هتبقى أحسن!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSubtitle').textContent = sub;
+  document.getElementById('scoreNum').textContent = pct + '%';
+  document.getElementById('correctCount').textContent = score;
+  document.getElementById('wrongCount').textContent = total - score;
+  document.getElementById('totalCount').textContent = total;
+
+  const circle = document.getElementById('scoreCircle');
+  circle.style.setProperty('--pct', `${pct * 3.6}deg`);
+}
+
+function restartQuiz() { showScreen('startScreen'); }
+
+// ===================== UTILS =====================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
